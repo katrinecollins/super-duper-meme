@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 //connect to database
 const db = mysql.createConnection(
@@ -8,7 +8,7 @@ const db = mysql.createConnection(
         user: "root",
         //Your MySQL password
         password:"ScoobyDoo1983!",
-        database: "employee_watcher",
+        database: "employee_tracker",
     },
     console.log("Connected to the employee Tracker database.")
 );
