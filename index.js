@@ -102,7 +102,7 @@ const viewAllEmployees = () => {
         console.table(res)
         Init();
     })
-}
+};
 
 const viewAllDepartments = () => {
     const sql = `SELECT * FROM department;`;
@@ -112,7 +112,17 @@ const viewAllDepartments = () => {
         console.table(res)
         Init();
     })
-}
+};
+
+const viewAllRoles = () => {
+    const sql = `SELECT * FROM role;`;
+
+    db.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res)
+        Init();
+    })
+};
 
 const addRole = () => {
     inquirer.prompt([
@@ -141,7 +151,60 @@ const addRole = () => {
             Init();
         })
     })
-}
+};
+
+const viewAddDepartment = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "department_name",
+            message: "What is the department name?"
+        }
+    ])
+    .then(answer => {
+        const sql = `INSERT INTO department (department_name) VALUES ("${answer.addDepartment}")`;
+
+        db.query(sql, (err, res) => {
+            if (err) throw err;
+            console.table(res)
+            Init();
+        })
+    })
+};
+
+const addEmployee = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "first_name",
+            message: "What is the emplyee's first name?"
+        },
+        {
+            type: "input",
+            name: "last_name",
+            message: "What is the employee's last name?"
+        },
+        {
+            type: "input",
+            name: "role",
+            message: "What is the employee's role?"
+        },
+        {
+            type: "input",
+            name: "manager",
+            message: "Who is the employee's manager?"
+        }
+    ])
+    .then(answers => {
+        const sql = `INSERT INTO employee (first_name, last_name, role, manager) VALUES ("${answers.first_name}", "${answers.last_name}", "${answers.role}", "${answers.manager});`;
+
+        db.query(sql, (err, res) => {
+            if (err) throw err;
+            console.table(res)
+            Init();
+        })
+    })
 
 
-
+    
+};
