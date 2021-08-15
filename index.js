@@ -50,10 +50,13 @@ const Init = async () => {
                     addRole();
                     break;
                 case "Add Department":
-                    viewAddDepartment();
+                    addDepartment();
                     break;
-                case "Update Role":
-                    viewUpdateRole();
+                case "Add Employee":
+                    addEmployee();
+                    break;
+                case "Update Employee":
+                    updateEmployee();
                     break;
                 case "Exit":
                     db.end();
@@ -153,7 +156,7 @@ const addRole = () => {
     })
 };
 
-const viewAddDepartment = () => {
+const addDepartment = () => {
     inquirer.prompt([
         {
             type: "input",
@@ -186,25 +189,46 @@ const addEmployee = () => {
         },
         {
             type: "input",
-            name: "role",
+            name: "role_id",
             message: "What is the employee's role?"
         },
         {
             type: "input",
-            name: "manager",
+            name: "manager_id",
             message: "Who is the employee's manager?"
         }
     ])
     .then(answers => {
-        const sql = `INSERT INTO employee (first_name, last_name, role, manager) VALUES ("${answers.first_name}", "${answers.last_name}", "${answers.role}", "${answers.manager});`;
+        const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${answers.first_name}", "${answers.last_name}", "${answers.role}", "${answers.manager});`;
 
         db.query(sql, (err, res) => {
             if (err) throw err;
             console.table(res)
             Init();
         })
-    })
+    });
+
+const updateEmployee =() => {
+    inquirer.prompt([{
+    type: "input",
+    name: "first_name",
+    message: "What employee would you like to update?",
+    },
+    {
+    type: "input",
+    name: "newRole",
+    message: "What is the employee's new role?"
+    },
+    {
+        type: "input",
+        name: "newManager",
+        message: "What is the new manager's name?",
+    }
+    ])
+    }
 
 
     
 };
+
+
